@@ -1,0 +1,8 @@
+node_modules
+dist
+screenshots
+scripts/last-fish-puzzle.png
+.DS_Store
+
+# my private evaluation notes (not uploaded)
+EVALUATION_NOTES.md
