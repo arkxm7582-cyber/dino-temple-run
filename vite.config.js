@@ -1,11 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// Backup route for the Fish API. The game normally calls the API directly
-// (it allows other websites with CORS). If that is blocked, it calls
-// '/fish-api/api.php' on its own address, and Vite passes it on:
-//   /fish-api/api.php  ->  https://www.marcconrad.com/uob/fish/api.php
-// (server/server.js does the same job for the finished game.)
 const fishProxy = {
   '/fish-api': {
     target: 'https://www.marcconrad.com',

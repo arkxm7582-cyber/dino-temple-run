@@ -1,4 +1,3 @@
-// Entry point: loads the fonts and styles and puts <App /> on the page.
 import { createRoot } from 'react-dom/client';
 import '@fontsource/lilita-one/400.css';
 import '@fontsource/nunito/600.css';

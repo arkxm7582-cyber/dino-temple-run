@@ -1,19 +1,9 @@
-// =============================================================
-// App.jsx
-// =============================================================
-// The main React component. It:
-//   1. creates the one GameController for the whole game
-//   2. puts the 3D canvas on the page and starts the game loop
-//   3. listens for keyboard and touch events (Week 3 - Event Driven)
-//   4. shows the screens (login, menu, HUD, ...) on top of the canvas
-// =============================================================
 import { useEffect, useRef, useState } from 'react';
 import { GameController } from './game/GameController.js';
 import { Renderer } from './render/Renderer.js';
 import { GameContext } from './ui/useGame.js';
 import Screens from './ui/Screens.jsx';
 
-// Which key does what. event.code is the physical key on the keyboard.
 const KEYS = {
   ArrowLeft: 'left',
   KeyA: 'left',
@@ -29,20 +19,13 @@ const KEYS = {
 };
 
 export default function App() {
-  // useState with a function: the controller is created only once,
-  // not every time App is redrawn.
   const [ctrl] = useState(() => new GameController());
   const canvasRef = useRef(null);
 
-  // For demos and testing: open the page with ?debug at the end of the
-  // address, then type "game" in the browser console to use the controller.
-  // e.g. game.runner.distance = 280  -> jump close to the first fish gate
   if (window.location.search.includes('debug')) {
     window.game = ctrl;
   }
 
-  // ---------- 1. the 3D canvas and the game loop ----------
-  // useEffect runs after the page is shown, so the <canvas> exists by then.
   useEffect(() => {
     const renderer = new Renderer(canvasRef.current);
     ctrl.attachRenderer(renderer);
@@ -53,7 +36,6 @@ export default function App() {
     }
     window.addEventListener('resize', onResize);
 
-    // The function returned here runs when the component is removed (clean up).
     return () => {
       ctrl.stop();
       ctrl.detachRenderer();
@@ -62,19 +44,16 @@ export default function App() {
     };
   }, [ctrl]);
 
-  // ---------- 2. keyboard events ----------
   useEffect(() => {
     function onKeyDown(event) {
       // Don't react while the player is typing their name or PIN
       if (event.target.tagName === 'INPUT') {
         return;
       }
-      // Holding a key down repeats it. We only want one move per press.
       if (event.repeat) {
         return;
       }
 
-      // Keys 1-4 answer the fish question (the controller ignores them otherwise)
       if (event.code === 'Digit1') ctrl.answer(0);
       if (event.code === 'Digit2') ctrl.answer(1);
       if (event.code === 'Digit3') ctrl.answer(2);
@@ -82,7 +61,7 @@ export default function App() {
 
       const move = KEYS[event.code];
       if (move !== undefined) {
-        event.preventDefault(); // stop the arrow keys / space from scrolling the page
+        event.preventDefault();
         ctrl.handleInput(move);
       }
     }
@@ -91,9 +70,8 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [ctrl]);
 
-  // ---------- 3. touch swipes (phones and tablets) ----------
   useEffect(() => {
-    let start = null; // where the finger first touched
+    let start = null;
 
     function onPointerDown(event) {
       start = { x: event.clientX, y: event.clientY };
@@ -101,10 +79,10 @@ export default function App() {
 
     function onPointerUp(event) {
       if (start === null || event.pointerType === 'mouse') {
-        return; // swipes are only for touch screens
+        return;
       }
-      const dx = event.clientX - start.x; // how far the finger moved sideways
-      const dy = event.clientY - start.y; // how far it moved up/down
+      const dx = event.clientX - start.x;
+      const dy = event.clientY - start.y;
       start = null;
 
       // Ignore tiny movements (that is a tap, not a swipe)
@@ -131,8 +109,6 @@ export default function App() {
     };
   }, [ctrl]);
 
-  // ---------- 4. what is shown on the page ----------
-  // GameContext.Provider makes the controller available to every screen.
   return (
     <GameContext.Provider value={ctrl}>
       <canvas ref={canvasRef} />

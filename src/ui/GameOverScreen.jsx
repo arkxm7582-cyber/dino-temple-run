@@ -1,13 +1,3 @@
-// =============================================================
-// GameOverScreen.jsx
-// =============================================================
-// Shown when the run ends. This happens automatically when:
-//   - the last life is lost (crash, wrong answer or time ran out)
-//   - the Fish API could not be reached (the gate can't open)
-//   - the player pressed "End run"
-// The game has already been saved in the history by the GameController
-// (see saveScore) before this screen appears.
-// =============================================================
 import { useGame } from './useGame.js';
 import { LEVELS, getDino } from '../game/config.js';
 
@@ -25,7 +15,6 @@ export default function GameOverScreen() {
     title = 'Run ended';
     reason = 'You ended the run.';
   }
-  // "best" already includes this run, so if they are equal it is a new record
   if (score > 0 && score >= best) {
     title = 'New best score!';
   }
@@ -57,7 +46,6 @@ export default function GameOverScreen() {
           <span>Gates passed <b>{run.gatesPassed}</b></span>
         </div>
 
-        {/* EASY CHANGE: the three buttons (text and what they do) */}
         <div className="button-row">
           <button onClick={() => ctrl.startRun()}>Play again</button>
           <button className="ghost" onClick={() => ctrl.goToMenu('play')}>Main menu</button>

@@ -11,9 +11,8 @@ life: the fish pop-up closes and a box shows the score with **Next puzzle**,
 **Replay** and **Main menu**. On the last life the game over screen appears
 instead. Pass 3 gates to reach the next level.
 
-To change the game quickly, search the code for `EASY CHANGE` (most values
-are in `src/game/config.js`). EVALUATION_NOTES.md section 6 lists common
-changes and where to make them.
+Most settings (lives, speeds, gate distance, answer time, points, levels,
+dinosaurs) are in `src/game/config.js`.
 
 ## Dinosaurs
 

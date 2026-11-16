@@ -1,14 +1,3 @@
-// =============================================================
-// FishQuestion.jsx
-// =============================================================
-// The pop-up at a fish gate. What it shows depends on checkpoint.status:
-//   'loading'  -> "Getting a puzzle..."
-//   'question' -> the picture, the timer and 4 answer buttons
-//   'feedback' -> after a correct answer: the right button green + "Correct!"
-// If the Fish API fails, the game closes this pop-up by itself and shows
-// the game over screen. There is also always a button to end the run,
-// so the player is never stuck while the API is slow.
-// =============================================================
 import { useGame } from './useGame.js';
 
 export default function FishQuestion() {
@@ -46,8 +35,6 @@ export default function FishQuestion() {
   );
 }
 
-// The 4 answer buttons. After answering, the right one turns green and
-// the wrong choice turns red.
 function AnswerButtons({ cp, onAnswer }) {
   const answered = cp.status === 'feedback';
 
@@ -71,8 +58,6 @@ function AnswerButtons({ cp, onAnswer }) {
   );
 }
 
-// Only shown after a CORRECT answer. (A wrong answer closes this pop-up
-// and shows LostLifeBox.jsx instead.)
 function FeedbackMessage({ feedback }) {
   if (feedback.correct) {
     return <p className="good">Correct! The gate is opening.</p>;

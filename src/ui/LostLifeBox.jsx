@@ -1,16 +1,3 @@
-// =============================================================
-// LostLifeBox.jsx
-// =============================================================
-// Shown after a WRONG fish answer (or when the timer ran out) while the
-// player still has lives left. The fish pop-up is closed and this box
-// appears instead, with the score and three buttons:
-//   Next puzzle - stay at the same gate and get a new picture
-//   Replay      - start a brand new run
-//   Main menu   - end this run (the score is saved) and go to the menu
-//
-// EASY CHANGE: to change the text or the buttons, edit the JSX below.
-// The buttons call methods of the GameController (ctrl.nextPuzzle, ...).
-// =============================================================
 import { useGame } from './useGame.js';
 import { getDino } from '../game/config.js';
 

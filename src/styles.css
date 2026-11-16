@@ -1,16 +1,5 @@
-/* =============================================================
-   styles.css
-   The 3D <canvas> fills the page and the screens sit on top of it.
-
-   Responsive design: the base text size (1rem) grows and shrinks with
-   the size of the window, and every size below is written in rem.
-   So on a small or short screen EVERYTHING gets a bit smaller and the
-   panels still fit on the screen without scrolling.
-   ============================================================= */
-/* EASY CHANGE: the main orange colour is #ffb627 (buttons, titles, borders).
-   Search and replace it to change the colour of the whole interface. */
 html {
-  /* EASY CHANGE: text size, between 14px and 19px, depending on the window width (vw) and height (vh) */
+
   font-size: clamp(14px, 0.7vw + 1.3vh, 19px);
 }
 body {
@@ -21,16 +10,15 @@ body {
   font: 600 1rem 'Nunito', system-ui, sans-serif;
   user-select: none;
 }
-canvas { position: fixed; inset: 0; width: 100%; height: 100%; touch-action: none; /* swipes go to the game */ }
+canvas { position: fixed; inset: 0; width: 100%; height: 100%; touch-action: none;  }
 
-/* the layer above the canvas that holds the screens */
 main {
   position: fixed; inset: 0;
-  display: flex; /* children use margin: auto to centre themselves */
+  display: flex;
   padding: 0.6rem;
-  pointer-events: none; /* touches pass through to the canvas... */
+  pointer-events: none;
 }
-main > * { pointer-events: auto; } /* ...except on panels */
+main > * { pointer-events: auto; }
 
 h1, h2 { font-family: 'Lilita One', Impact, sans-serif; font-weight: 400; color: #ffb627; margin: 0; text-align: center; }
 h1 { font-size: 2rem; line-height: 1.1; }
@@ -40,7 +28,6 @@ ul { margin: 0; padding-left: 1.2rem; font-size: 0.9rem; }
 .good { color: #3fcf6a; }
 .bad { color: #ff5a5f; }
 
-/* ---------- panels and pop-ups ---------- */
 .overlay {
   position: fixed; inset: 0;
   display: flex; padding: 0.6rem;
@@ -48,8 +35,8 @@ ul { margin: 0; padding-left: 1.2rem; font-size: 0.9rem; }
 }
 .panel {
   width: min(32rem, 100%);
-  max-height: 100%; /* never taller than the screen */
-  margin: auto;     /* centred */
+  max-height: 100%;
+  margin: auto;
   display: flex; flex-direction: column; gap: 0.55rem;
   padding: 1.1rem 1.3rem;
   border: 3px solid #ffb627; border-radius: 1.1rem;
@@ -63,10 +50,8 @@ label { display: flex; flex-direction: column; gap: 0.25rem; }
 input { padding: 0.6rem; border: 2px solid transparent; border-radius: 0.6rem; background: rgba(255, 255, 255, 0.1); color: inherit; font: inherit; }
 input:focus { outline: none; border-color: #ffb627; }
 
-/* the fish picture shrinks with the screen height so the panel always fits */
 img { width: 100%; height: 38vh; object-fit: contain; background: #04263c; border-radius: 0.8rem; }
 
-/* ---------- buttons ---------- */
 button {
   padding: 0.6rem 0.9rem; border: none; border-radius: 0.7rem; cursor: pointer;
   background: #ffb627; color: #2c2318; font: 800 1rem 'Nunito', sans-serif;
@@ -82,7 +67,6 @@ button.right:disabled, button.wrong:disabled { opacity: 1; }
 .answers button { font-size: 1.2rem; }
 .button-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
 
-/* ---------- menu ---------- */
 .menu-header { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
 .menu-user { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; }
 .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
@@ -106,10 +90,9 @@ th { color: #ffb627; }
 .two-columns { columns: 2; column-gap: 1.5rem; }
 .big-hearts { font-size: 2rem; letter-spacing: 0.3rem; margin: 0; }
 
-/* ---------- login screen ---------- */
 .login { width: min(30rem, 100%); }
-.pin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; } /* PIN + Repeat PIN side by side */
-.login input:not([type=checkbox]) { width: 100%; min-width: 0; box-sizing: border-box; } /* inputs may shrink to fit */
+.pin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.login input:not([type=checkbox]) { width: 100%; min-width: 0; box-sizing: border-box; }
 .muted { color: rgba(255, 248, 232, 0.7); }
 .tabs.two { grid-template-columns: 1fr 1fr; }
 .quick-pick { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: center; }
@@ -121,14 +104,13 @@ th { color: #ffb627; }
 .checkbox input { width: 1.1rem; height: 1.1rem; accent-color: #ffb627; }
 .error-box { padding: 0.5rem 0.7rem; border-radius: 0.6rem; background: rgba(255, 90, 95, 0.18); color: #ff8a8e; border: 1px solid #ff5a5f; }
 
-/* ---------- HUD while running ---------- */
 .hud {
   position: fixed; top: 0; left: 0; right: 0;
   padding: 0.6rem;
   display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
   pointer-events: none;
 }
-/* the bar of information: always in the same place */
+
 .hud-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
 .hud-bar span, .hud-bar button {
   padding: 0.35rem 0.7rem; border-radius: 99px;
@@ -137,32 +119,30 @@ th { color: #ffb627; }
 }
 .hud-bar button { pointer-events: auto; }
 .hud .bad { color: #ff5a5f; }
-/* the pop-up message, under the bar */
+
 .banner {
   font: 1.5rem 'Lilita One', sans-serif; color: #2c2318; text-align: center;
   background: #ffb627; border-radius: 0.8rem; padding: 0.35rem 1.2rem;
 }
 
-/* ---------- small screens ---------- */
-/* narrow (phone held upright) */
 @media (max-width: 560px) {
   .answers { grid-template-columns: repeat(2, 1fr); }
   .tabs button { font-size: 0.8rem; }
   .menu-header { justify-content: center; }
   .two-columns { columns: 1; }
   .button-row { grid-template-columns: 1fr; }
-  .pin-grid { grid-template-columns: 1fr; } /* PIN boxes under each other on phones */
+  .pin-grid { grid-template-columns: 1fr; }
   img { height: 30vh; }
 }
-/* hide the tagline on screens that are not very tall */
+
 @media (max-height: 650px) {
   .tagline { display: none; }
 }
-/* short (phone held sideways, small laptop window) */
+
 @media (max-height: 500px) {
   h1 { font-size: 1.6rem; }
-  .card .about { display: none; } /* hide the long dino descriptions */
-  .login small { display: none; } /* hide the small notes */
+  .card .about { display: none; }
+  .login small { display: none; }
   img { height: 34vh; }
   .panel { gap: 0.4rem; padding: 0.7rem 1rem; }
   .stats span { padding: 0.3rem 0.45rem; }

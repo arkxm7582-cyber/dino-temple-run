@@ -1,6 +1,3 @@
-// =============================================================
-// PauseMenu.jsx
-// =============================================================
 import { useGame } from './useGame.js';
 
 export default function PauseMenu() {

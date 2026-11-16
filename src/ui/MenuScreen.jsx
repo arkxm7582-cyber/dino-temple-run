@@ -1,20 +1,7 @@
-// =============================================================
-// MenuScreen.jsx
-// =============================================================
-// The main menu has four tabs:
-//   Play         - choose a dinosaur and a level, then press Play
-//   Hall of fame - the best score of every player + the latest games
-//   My stats     - this player's totals and their last games
-//   Help         - how to play
-// Everything is kept small enough to fit on the screen without scrolling.
-// The data comes from services/records.js (saved in localStorage).
-// =============================================================
 import { useState } from 'react';
 import { useGame } from './useGame.js';
 import { DINOS, LEVELS, getDino } from '../game/config.js';
 
-// The tabs of the menu: [id, text on the button]
-// EASY CHANGE: rename a tab here (the id must stay the same)
 const TABS = [
   ['play', 'Play'],
   ['fame', 'Hall of fame'],
@@ -24,13 +11,10 @@ const TABS = [
 
 export default function MenuScreen() {
   const { ctrl, user, best, menuTab } = useGame();
-  // which tab is open (starts on the tab the controller asked for,
-  // e.g. 'fame' after pressing "Hall of fame" on the game over screen)
   const [tab, setTab] = useState(menuTab);
 
   return (
     <div className="panel wide">
-      {/* header: title on the left, player + best score + log out on the right */}
       <div className="menu-header">
         <h1>Dino Temple Run</h1>
         <div className="menu-user">
@@ -53,7 +37,6 @@ export default function MenuScreen() {
   );
 }
 
-// ---------- Play: choose dinosaur and level ----------
 function PlayTab() {
   const { ctrl, progress } = useGame();
 
@@ -97,7 +80,6 @@ function PlayTab() {
   );
 }
 
-// ---------- Help: how to play ----------
 function HelpTab() {
   return (
     <ul className="help">
@@ -113,7 +95,6 @@ function HelpTab() {
   );
 }
 
-// ---------- Hall of fame: all players ----------
 function HallOfFameTab() {
   const { records } = useGame();
 
@@ -147,7 +128,6 @@ function HallOfFameTab() {
   );
 }
 
-// ---------- My stats: this player only ----------
 function StatsTab() {
   const { records } = useGame();
   const stats = records.stats;

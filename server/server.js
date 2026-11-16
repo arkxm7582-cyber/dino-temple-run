@@ -1,15 +1,3 @@
-// ---------------------------------------------------------------
-// server.js  (Week 4 - Interoperability)
-// A small Node.js web server for the finished game. It does two jobs:
-//   1. sends the built game files from the "dist" folder
-//   2. passes /fish-api/api.php on to the real Fish API (a "proxy")
-//
-// The game normally calls the Fish API directly (the API allows it with
-// CORS). This proxy is the backup route, used if a network blocks the
-// direct call: the browser asks this server, and this server asks the API.
-//
-// Run it with:  npm run build  then  npm run serve   (http://localhost:8080)
-// ---------------------------------------------------------------
 import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, join, normalize, resolve } from 'node:path';
@@ -29,7 +17,6 @@ const TYPES = {
   '.woff2': 'font/woff2',
 };
 
-// Job 2: ask the real Fish API and send its answer back to the browser.
 async function proxyFishApi(res) {
   try {
     const apiResponse = await fetch(FISH_API, { signal: AbortSignal.timeout(10000) });
@@ -42,11 +29,9 @@ async function proxyFishApi(res) {
   }
 }
 
-// Job 1: send a file from the dist folder (index.html if not found).
 async function sendFile(res, path) {
   let file = normalize(join(DIST, decodeURIComponent(path)));
   if (!file.startsWith(DIST)) {
-    // stops requests like /../../secret.txt from leaving the dist folder
     res.writeHead(403);
     res.end();
     return;

@@ -1,10 +1,3 @@
-// ---------------------------------------------------------------
-// verify-fish-api.mjs
-// Checks that the REAL Fish API still works with the game's code.
-//   npm run verify:api
-// It downloads one puzzle, reads it with the game's own parseFishResponse(),
-// saves the picture to scripts/last-fish-puzzle.png and prints the answer.
-// ---------------------------------------------------------------
 import { writeFile } from 'node:fs/promises';
 import { parseFishResponse, makeAnswerOptions } from '../src/services/fishApi.js';
 
